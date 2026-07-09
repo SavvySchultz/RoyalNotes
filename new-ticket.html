@@ -1,80 +1,260 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>New Royal Ticket</title>
-  <link rel="stylesheet" href="styles.css" />
+
+  <meta charset="UTF-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+
+  <title>Create Royal Ticket</title>
+
+  <link
+    rel="stylesheet"
+    href="styles.css"
+  >
+
 </head>
+
 <body>
-  <div class="background-sparkles"></div>
 
-  <header class="top-bar">
-    <div>
-      <h1>✨ New Royal Ticket</h1>
-      <p>Create a new storage note for your archive</p>
-    </div>
-    <a href="index.html" class="btn btn-secondary">Back to Archive</a>
-  </header>
+<div class="background-sparkles"></div>
 
-  <main class="single-page">
-    <section class="card form-card">
-      <form id="newTicketForm">
+<header class="top-bar">
 
-        <label class="label" for="ticketNumber">Ticket Number *</label>
-        <input id="ticketNumber" class="input" type="text" required />
+  <div>
 
-        <label class="label" for="title">Title *</label>
-        <input id="title" class="input" type="text" required />
+    <h1>
+      ✨ Create Royal Ticket
+    </h1>
 
-        <label class="label" for="royalRole">Royal Role *</label>
-        <select id="royalRole" class="input" required>
-          <option value="">Select Royal Role</option>
-          <option value="Princess">👸 Princess</option>
-          <option value="Prince">🤴 Prince</option>
-        </select>
+    <p>
+      Add a new Prince or Princess ticket to the Royal Archive.
+    </p>
 
-        <label class="label" for="category">Category *</label>
-        <select id="category" class="input" required>
-          <option value="">Select category</option>
-          <option value="VPN">VPN</option>
-          <option value="Email">Email</option>
-          <option value="Printer">Printer</option>
-          <option value="Hardware">Hardware</option>
-          <option value="Software">Software</option>
-          <option value="Network">Network</option>
-          <option value="Account">Account</option>
-          <option value="Other">Other</option>
-        </select>
+  </div>
 
-        <label class="label" for="tags">Tags</label>
-        <input id="tags" class="input" type="text" />
+  <a
+    href="index.html"
+    class="btn btn-secondary"
+  >
+    Back To Archive
+  </a>
 
-        <label class="label" for="symptoms">Symptoms</label>
-        <textarea id="symptoms" class="textarea"></textarea>
+</header>
 
-        <label class="label" for="resolution">Resolution</label>
-        <textarea id="resolution" class="textarea"></textarea>
+<main class="single-page">
 
-        <label class="label" for="notes">Additional Notes</label>
-        <textarea id="notes" class="textarea"></textarea>
+<section class="card form-card">
 
-        <div class="button-row">
-          <button type="submit" class="btn btn-primary">
-            Save Ticket
-          </button>
+<form id="newTicketForm">
 
-          .html" class="btn btn-secondary">
-            Cancel
-          </a>
-        </div>
+  <label
+    class="label"
+    for="ticketNumber"
+  >
+    Ticket Number *
+  </label>
 
-      </form>
+  <input
+    id="ticketNumber"
+    class="input"
+    type="text"
+    placeholder="IT-12345"
+    required
+  >
 
-      <div id="saveMessage" class="save-message"></div>
-    </section>
-  </main>
+  <label
+    class="label"
+    for="title"
+  >
+    Ticket Title *
+  </label>
 
-  <script src="new-ticket.js"></script>
+  <input
+    id="title"
+    class="input"
+    type="text"
+    placeholder="VPN Login Failed After Password Reset"
+    required
+  >
+
+  <label
+    class="label"
+    for="royalRole"
+  >
+    Royal Role *
+  </label>
+
+  <select
+    id="royalRole"
+    class="input"
+    required
+  >
+
+    <option value="">
+      Select Royal Role
+    </option>
+
+    <option value="Princess">
+      👸 Princess
+    </option>
+
+    <option value="Prince">
+      🤴 Prince
+    </option>
+
+  </select>
+
+  <label
+    class="label"
+    for="category"
+  >
+    Category *
+  </label>
+
+  <select
+    id="category"
+    class="input"
+    required
+  >
+
+    <option value="">
+      Select Category
+    </option>
+
+    <option value="VPN">
+      VPN
+    </option>
+
+    <option value="Email">
+      Email
+    </option>
+
+    <option value="Printer">
+      Printer
+    </option>
+
+    <option value="Hardware">
+      Hardware
+    </option>
+
+    <option value="Software">
+      Software
+    </option>
+
+    <option value="Network">
+      Network
+    </option>
+
+    <option value="Account">
+      Account
+    </option>
+
+    <option value="Other">
+      Other
+    </option>
+
+  </select>
+
+  <label
+    class="label"
+    for="tags"
+  >
+    Tags
+  </label>
+
+  <input
+    id="tags"
+    class="input"
+    type="text"
+    placeholder="vpn, password reset, mfa"
+  >
+
+  <label
+    class="label"
+    for="symptoms"
+  >
+    Symptoms
+  </label>
+
+  <textarea
+    id="symptoms"
+    class="textarea"
+    placeholder="Describe the issue..."
+  ></textarea>
+
+  <label
+    class="label"
+    for="resolution"
+  >
+    Resolution
+  </label>
+
+  <textarea
+    id="resolution"
+    class="textarea"
+    placeholder="Describe the solution..."
+  ></textarea>
+
+  <label
+    class="label"
+    for="notes"
+  >
+    Additional Notes
+  </label>
+
+  <textarea
+    id="notes"
+    class="textarea"
+    placeholder="Helpful notes or reminders..."
+  ></textarea>
+
+  <div class="button-row">
+
+    <button
+      type="submit"
+      class="btn btn-primary"
+    >
+      Save Royal Ticket
+    </button>
+
+    <a
+      href="index.html"
+      class="btn btn-secondary"
+    >
+      Cancel
+    </a>
+
+  </div>
+
+</form>
+
+<div
+  id="saveMessage"
+  class="save-message"
+></div>
+
+</section>
+
+</main>
+
+<script>
+
+const savedTheme =
+  localStorage.getItem("royal-theme")
+  || "princess-theme";
+
+document.body.classList.add(
+  savedTheme
+);
+
+</script>
+
+<script src="new-ticket.js"></script>
+
 </body>
 </html>
