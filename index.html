@@ -1,18 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta
-    name="viewport"
-    content="width=device-width, initial-scale=1.0"
-  >
+<meta charset="UTF-8">
 
-  <title>Royal Ticket Archive</title>
+<meta
+  name="viewport"
+  content="width=device-width, initial-scale=1.0"
+/>
 
-  <link
-    rel="stylesheet"
-    href="styles.css"
-  >
+<title>Royal Ticket Archive</title>
+
+<link rel="stylesheet" href="styles.css" />
 </head>
 
 <body>
@@ -25,82 +23,170 @@
     <h1>👑 Royal Ticket Archive</h1>
 
     <p>
-      An IT Storage Vault For Princes & Princesses
+      The Royal Knowledge Vault For Princes & Princesses
     </p>
   </div>
 
-  .html"
-    class="btn btn-primary"
-  >
-    New Ticket
-  </a>
+  <div class="header-actions">
+
+    <button
+      id="princessThemeBtn"
+      class="btn btn-princess"
+    >
+      👸 Princess Theme
+    </button>
+
+    <button
+      id="princeThemeBtn"
+      class="btn btn-prince"
+    >
+      🤴 Prince Theme
+    </button>
+
+    <a
+      href="new-ticket.html"
+      class="btn btn-primary"
+    >
+      New Ticket
+    </a>
+
+  </div>
 
 </header>
 
 <main class="layout">
 
-<aside class="sidebar card">
+  <aside class="sidebar card">
 
-  <h2>Search The Archive</h2>
+    <h2>🔎 Search The Archive</h2>
 
-  <input
-    id="searchInput"
-    class="input"
-    type="text"
-    placeholder="Search tickets..."
-  >
+    <input
+      id="searchInput"
+      class="input"
+      type="text"
+      placeholder="Search tickets..."
+    >
 
-  <label class="label">
-    Category
-  </label>
+    <label class="label">
+      Category
+    </label>
 
-  <select
-    id="filterCategory"
-    class="input"
-  >
-    <option value="">
-      All Categories
-    </option>
+    <select
+      id="filterCategory"
+      class="input"
+    >
+      <option value="">
+        All Categories
+      </option>
 
-    <option value="VPN">VPN</option>
-    <option value="Email">Email</option>
-    <option value="Printer">Printer</option>
-    <option value="Hardware">Hardware</option>
-    <option value="Software">Software</option>
-    <option value="Network">Network</option>
-    <option value="Account">Account</option>
-    <option value="Other">Other</option>
-  </select>
+      <option value="VPN">
+        VPN
+      </option>
 
-  <button
-    id="clearFiltersBtn"
-    class="btn btn-secondary full-width"
-  >
-    Clear Filters
-  </button>
+      <option value="Email">
+        Email
+      </option>
 
-</aside>
+      <option value="Printer">
+        Printer
+      </option>
 
-<section class="content card">
+      <option value="Hardware">
+        Hardware
+      </option>
 
-  <div class="content-header">
+      <option value="Software">
+        Software
+      </option>
 
-    <h2>Saved Tickets</h2>
+      <option value="Network">
+        Network
+      </option>
 
-    <p>
-      Click a ticket to view or edit it.
-    </p>
+      <option value="Account">
+        Account
+      </option>
 
-  </div>
+      <option value="Other">
+        Other
+      </option>
 
-  <div
-    id="ticketList"
-    class="ticket-list"
-  ></div>
+    </select>
 
-</section>
+    <button
+      id="clearFiltersBtn"
+      class="btn btn-secondary full-width"
+    >
+      Clear Filters
+    </button>
+
+  </aside>
+
+  <section class="content card">
+
+    <div class="content-header">
+
+      <h2>📚 Saved Royal Tickets</h2>
+
+      <p>
+        Click a ticket to view, edit, or update it.
+      </p>
+
+    </div>
+
+    <div
+      id="ticketList"
+      class="ticket-list"
+    ></div>
+
+  </section>
 
 </main>
+
+<script>
+
+const THEME_KEY = "royal-theme";
+
+const princessBtn =
+  document.getElementById("princessThemeBtn");
+
+const princeBtn =
+  document.getElementById("princeThemeBtn");
+
+function applyTheme(theme) {
+
+  document.body.classList.remove(
+    "princess-theme",
+    "prince-theme"
+  );
+
+  document.body.classList.add(
+    theme
+  );
+
+  localStorage.setItem(
+    THEME_KEY,
+    theme
+  );
+}
+
+const savedTheme =
+  localStorage.getItem(THEME_KEY)
+  || "princess-theme";
+
+applyTheme(savedTheme);
+
+princessBtn.addEventListener(
+  "click",
+  () => applyTheme("princess-theme")
+);
+
+princeBtn.addEventListener(
+  "click",
+  () => applyTheme("prince-theme")
+);
+
+</script>
 
 .js"></script>
 
