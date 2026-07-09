@@ -1,5 +1,21 @@
 const STORAGE_KEY = "royal-ticket-storage";
 
+/* ========================= */
+/* LOAD THEME */
+/* ========================= */
+
+const savedTheme =
+  localStorage.getItem("royal-theme")
+  || "princess-theme";
+
+document.body.classList.add(
+  savedTheme
+);
+
+/* ========================= */
+/* ELEMENTS */
+/* ========================= */
+
 const ticketView =
   document.getElementById("ticketView");
 
@@ -42,7 +58,12 @@ const editResolution =
 const editNotes =
   document.getElementById("editNotes");
 
+/* ========================= */
+/* STORAGE */
+/* ========================= */
+
 function loadTickets() {
+
   const raw =
     localStorage.getItem(STORAGE_KEY);
 
@@ -52,13 +73,19 @@ function loadTickets() {
 }
 
 function saveTickets(tickets) {
+
   localStorage.setItem(
     STORAGE_KEY,
     JSON.stringify(tickets)
   );
 }
 
+/* ========================= */
+/* HELPERS */
+/* ========================= */
+
 function getTicketIdFromUrl() {
+
   const params =
     new URLSearchParams(
       window.location.search
@@ -68,6 +95,7 @@ function getTicketIdFromUrl() {
 }
 
 function escapeHtml(str) {
+
   return String(str)
     .replaceAll("&", "&amp;")
     .replaceAll("<", "&lt;")
@@ -77,17 +105,39 @@ function escapeHtml(str) {
 }
 
 function titleCase(text) {
+
   return text
     .toLowerCase()
     .split(" ")
     .filter(Boolean)
-    .map(
-      word =>
+    .map(word => {
+
+      return (
         word.charAt(0).toUpperCase() +
         word.slice(1)
-    )
+      );
+
+    })
     .join(" ");
 }
+
+function getRoleIcon(role) {
+
+  return role === "Prince"
+    ? "🤴"
+    : "👸";
+}
+
+function getRoleClass(role) {
+
+  return role === "Prince"
+    ? "royal-prince"
+    : "royal-princess";
+}
+
+/* ========================= */
+/* LOAD TICKET */
+/* ========================= */
 
 let tickets =
   loadTickets();
@@ -104,7 +154,7 @@ if (!ticket) {
 
   ticketView.innerHTML = `
     <p class="small">
-      Ticket not found.
+      Royal Ticket Not Found.
     </p>
   `;
 
@@ -117,142 +167,243 @@ if (!ticket) {
 
 }
 
+/* ========================= */
+/* RENDER */
+/* ========================= */
+
 function renderTicket(ticket) {
 
-  const crown =
-    ticket.royalRole === "Prince"
-      ? "🤴"
-      : "👸";
+  const role =
+    ticket.royalRole ||
+    "Princess";
+
+  const roleIcon =
+    getRoleIcon(role);
+
+  const roleClass =
+    getRoleClass(role);
 
   ticketView.innerHTML = `
 
 <div class="detail-block">
 
 <h3>
-${crown}
+${roleIcon}
 ${escapeHtml(ticket.title)}
 </h3>
 
 <p class="small">
+
 Ticket Number:
+
 <strong>
 ${escapeHtml(ticket.ticketNumber)}
 </strong>
+
 </p>
 
 <p class="small">
+
 Royal Role:
-<strong>
-${escapeHtml(ticket.royalRole || "Princess")}
-</strong>
+
+<span class="${roleClass}">
+${roleIcon}
+${escapeHtml(role)}
+</span>
+
 </p>
 
 <p class="small">
+
 Category:
+
 <strong>
 ${escapeHtml(ticket.category)}
 </strong>
+
 </p>
 
 <p class="small">
+
 Created:
-${new Date(ticket.createdAt).toLocaleString()}
+
+${new Date(
+  ticket.createdAt
+).toLocaleString()}
+
 </p>
 
 <p class="small">
+
 Last Updated:
-${new Date(ticket.updatedAt).toLocaleString()}
+
+${new Date(
+  ticket.updatedAt
+).toLocaleString()}
+
 </p>
 
 </div>
 
 <div class="detail-block">
 
-<h3>Tags</h3>
+<h3>
+🏷️ Tags
+</h3>
 
 <div class="tag-list">
 
-${(ticket.tags || [])
-  .map(
-    tag =>
-      `<span class="tag">${escapeHtml(tag)}</span>`
-  )
-  .join("")}
+${
+(ticket.tags || [])
+.map(tag => `
+<span class="tag">
+${escapeHtml(tag)}
+</span>
+`)
+.join("")
+||
+
+`<span class="small">
+No Tags
+</span>`
+}
 
 </div>
 
 </div>
 
 <div class="detail-block">
-<h3>Symptoms</h3>
-<p>${escapeHtml(ticket.symptoms || "")}</p>
+
+<h3>
+🔍 Symptoms
+</h3>
+
+<p>
+${escapeHtml(
+ticket.symptoms ||
+"No Symptoms Added."
+)}
+</p>
+
 </div>
 
 <div class="detail-block">
-<h3>Resolution</h3>
-<p>${escapeHtml(ticket.resolution || "")}</p>
+
+<h3>
+✅ Resolution
+</h3>
+
+<p>
+${escapeHtml(
+ticket.resolution ||
+"No Resolution Added."
+)}
+</p>
+
 </div>
 
 <div class="detail-block">
-<h3>Additional Notes</h3>
-<p>${escapeHtml(ticket.notes || "")}</p>
+
+<h3>
+📝 Additional Notes
+</h3>
+
+<p>
+${escapeHtml(
+ticket.notes ||
+"No Additional Notes."
+)}
+</p>
+
 </div>
+
 `;
 }
 
-editBtn.addEventListener("click", () => {
+/* ========================= */
+/* EDIT */
+/* ========================= */
 
-  editForm.style.display = "block";
+editBtn.addEventListener(
+  "click",
+  () => {
 
-  editTicketNumber.value =
-    ticket.ticketNumber;
+    if (!ticket) return;
 
-  editTitle.value =
-    ticket.title;
+    editForm.style.display =
+      "block";
 
-  editRoyalRole.value =
-    ticket.royalRole || "Princess";
+    editTicketNumber.value =
+      ticket.ticketNumber;
 
-  editCategory.value =
-    ticket.category;
+    editTitle.value =
+      ticket.title;
 
-  editTags.value =
-    (ticket.tags || []).join(", ");
+    editRoyalRole.value =
+      ticket.royalRole ||
+      "Princess";
 
-  editSymptoms.value =
-    ticket.symptoms || "";
+    editCategory.value =
+      ticket.category;
 
-  editResolution.value =
-    ticket.resolution || "";
+    editTags.value =
+      (ticket.tags || [])
+      .join(", ");
 
-  editNotes.value =
-    ticket.notes || "";
-});
+    editSymptoms.value =
+      ticket.symptoms || "";
+
+    editResolution.value =
+      ticket.resolution || "";
+
+    editNotes.value =
+      ticket.notes || "";
+
+    ticketMessage.textContent =
+      "Editing Royal Ticket...";
+  }
+);
 
 cancelEditBtn.addEventListener(
   "click",
   () => {
-    editForm.style.display = "none";
+
+    editForm.style.display =
+      "none";
+
+    ticketMessage.textContent =
+      "";
   }
 );
 
+/* ========================= */
+/* SAVE EDITS */
+/* ========================= */
+
 editForm.addEventListener(
   "submit",
-  e => {
+  (e) => {
 
     e.preventDefault();
 
-    const index =
+    const ticketIndex =
       tickets.findIndex(
         t => t.id === ticket.id
       );
 
-    tickets[index] = {
+    if (
+      ticketIndex === -1
+    ) {
+      return;
+    }
 
-      ...tickets[index],
+    tickets[ticketIndex] = {
+
+      ...tickets[ticketIndex],
 
       ticketNumber:
-        editTicketNumber.value.trim(),
+        editTicketNumber.value
+          .trim(),
 
       title:
         titleCase(
@@ -268,7 +419,9 @@ editForm.addEventListener(
       tags:
         editTags.value
           .split(",")
-          .map(tag => tag.trim())
+          .map(tag =>
+            tag.trim()
+          )
           .filter(Boolean),
 
       symptoms:
@@ -281,33 +434,56 @@ editForm.addEventListener(
         editNotes.value.trim(),
 
       updatedAt:
-        new Date().toISOString()
+        new Date()
+          .toISOString()
     };
 
     saveTickets(tickets);
 
     ticket =
-      tickets[index];
+      tickets[ticketIndex];
 
     renderTicket(ticket);
 
     editForm.style.display =
       "none";
 
-    ticketMessage.textContent =
-      "✨ Ticket Updated!";
+    if (
+      ticket.royalRole === "Prince"
+    ) {
+
+      ticketMessage.textContent =
+        "🤴 Prince Ticket Updated Successfully!";
+
+    } else {
+
+      ticketMessage.textContent =
+        "👸 Princess Ticket Updated Successfully!";
+    }
+
   }
 );
+
+/* ========================= */
+/* DELETE */
+/* ========================= */
 
 deleteBtn.addEventListener(
   "click",
   () => {
 
-    const ok = confirm(
-      `Delete ticket ${ticket.ticketNumber}?`
-    );
+    if (!ticket) {
+      return;
+    }
 
-    if (!ok) return;
+    const confirmed =
+      confirm(
+        `Delete ${ticket.ticketNumber}?`
+      );
+
+    if (!confirmed) {
+      return;
+    }
 
     tickets =
       tickets.filter(
